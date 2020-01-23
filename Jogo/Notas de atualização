@@ -1,0 +1,10 @@
+v0.0.2
+-Esqueletos com espadas(Agora renomeado para Esqueleto armadurado) agora são mais difíceis de aparecer, além de serem mais fortes
+-Agora quando uma criatura tem mais defesa que o ataque de outra, ainda há chance da criatura com maior defesa levar dano
+-Dano da espada de madeira de 1 foi para 2
+
+v0.0.3
+-Sistema de salvamentos
+-Poção de cura ter menos chances de drop
+-Sistema de nivel de monstro
+-Sistema de stack de itens(Provavelmente vou fazer um sistema de mochilas, onde algumas mochilas permitem estacar itens)

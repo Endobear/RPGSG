@@ -1,0 +1,44 @@
+Criaturas tem:
+Nome
+Vida
+Ataque 
+Defesa 
+Id
+
+Criaturas hostis tem:
+Item equipado 
+
+Itens tem:
+Equipavel
+função
+Usos
+Quantidade
+
+quando um monstro dropar um item, mostrar um dialogo escrito se o jogador quer equipar, colocar o item no inventário ou jogar fora.
+fazer isso com uma função que tem como parâmetro o item que foi dropado e se o jogador escolher equipar/cocar no inventário e o iventário ou a mão estiver cheia, ele reinicia a função com o mesmo item para o jogador escoher droppar.
+
+sistema de xp: o jogador vai ter um xp max que é para ele passar de nivel. se ele ganhar um tanto de xp e isso for maior que o xp max, ele passa de nivel e o que sobrar ajuda ele a passar para o próximo nivel
+exemplo: 
+XP para proximo nivel: 1500
+XP atual: 1450;
+XP ganho: 200;
+
+if (XP ganho > XP Max)
+{
+
+ passa de nivel
+ 
+ 1500 - 1450 = 50
+ 200-50 = 150
+ Xp atual = 150
+ XP max = 2000;
+}
+
+
+Fazer a função de um item ser tacavel e usavel para o jogador conseguir escoher entre usar um item em sí ou tacar em algum inimigo
+
+mais tarde fazer um sistema de classes, sendo que sua classe é aleatória e você só descobre ela depois usando uma estrutura que pode ser gerada automáticamente
+o jogo vai ter mapas gerados automaticamente, inclusive a história. algumas estruturas são aleatóriamente geradas, enquanto outras já tem um caminho a seguir e até alguns itens já preparados.
+
+se livrar do CriaturaHostil para transformar só em criatura
+
