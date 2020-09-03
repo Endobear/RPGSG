@@ -3,6 +3,7 @@ import javax.swing.JOptionPane;
 import Criaturas.Esqueleto;
 import Criaturas.Jogador;
 import Criaturas.Slime;
+import Criaturas.SlimeFogo;
 import Genericos.CriaturaHostil;
 import Genericos.Item;
 import Itens.Pedra;
@@ -19,7 +20,7 @@ public class Batalha {
 		Batalha batalha = new Batalha();
 		Jogador j = new Jogador();
 		j.inventario[1] = new Pedra();
-		CriaturaHostil[] adv = new CriaturaHostil[]{new Esqueleto(), new Slime()};
+		CriaturaHostil[] adv = new CriaturaHostil[]{new Esqueleto(), new Slime(), new SlimeFogo()};
 		
 		batalha.iniciarBatalha(j,adv);
 	}
@@ -65,11 +66,11 @@ public class Batalha {
 			acoesMonst[i] = true;
 		}
 		
-		boolean atacou = false;//diz se o jogador atacou, pro definição começa falso
+		boolean atacou = false;//diz se o jogador atacou, por definição começa falso
 		for (int i = 0; i < adversarios.length + acoes; i++) {//começo dos turnos
 			if(jogador.getVida() <= 0) 
 			{
-				JOptionPane.showMessageDialog(null, "Infelizmente você morreu, e esse jogo ainda não tem sistema de salvamento."
+				JOptionPane.showMessageDialog(null, "Infelizmente você morreu e esse jogo ainda não tem sistema de salvamento."
 						+ "\nAinda pretendo melhorar ele e adicionar muitas coisas novas(além de deixar o jogo melhor). Espere por mais atualizações futuras"
 						+ "\nEspero que tenha gostado do jogo. Obrigado por jogar!"
 						+ "\n-Endo");
@@ -114,6 +115,8 @@ public class Batalha {
 				}
 				
 				
+				
+				
 			}
 			
 			else if(i+1 >= adversarios.length && acoes > 0) //verifica se se todos os monstros já atacaram e se o jogador ainda possui ações
@@ -131,6 +134,23 @@ public class Batalha {
 		}
 		if(temAdversariosVivos(adversarios,jogador) & fugiu == false) 
 		{
+			//ativa os efeitos de todas os adversários
+			for (int j = 0; j < adversarios.length; j++) {
+				for (int u = 0; u < acoesMonst.length; u++) {
+					if (adversarios[j].getEfeitos()[u].getId() != 0) 
+					{
+						adversarios[j].getEfeitos()[u].causarEfeito();
+					}
+				}
+			}
+			//ativa os efeitos do jogador
+			for (int j = 0; j < jogador.getEfeitos().length; j++) {
+				if (jogador.getEfeitos()[j].getId() != 0) 
+				{
+					jogador.getEfeitos()[j].causarEfeito();
+				}
+			}
+			
 			passaTurno(jogador, criatura);
 		}
 		

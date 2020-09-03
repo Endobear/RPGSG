@@ -40,14 +40,6 @@ public class CriaturaHostil extends Criatura{
 	public CriaturaHostil() 
 	{setId(0);}
 	
-	@Override
-	public String informacoes() 
-	{
-		return "Criatura: " + this.getNome() + "\nId: " + this.getId() + "\nvida: " + this.getVida()
-		+ "\nItem: " + this.getItemEquipado().getNome() + "\nAtaque: " + this.getAtaque()
-		+ "\nDefesa: " + this.getDefesa();
-	}
-	
 	
 	
 	

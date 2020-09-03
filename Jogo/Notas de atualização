@@ -4,7 +4,12 @@ v0.0.2
 -Dano da espada de madeira de 1 foi para 2
 
 v0.0.3
--Sistema de salvamentos
--Poção de cura ter menos chances de drop
--Sistema de nivel de monstro
+-Arrumado layout dos monstros passar da tela horizontalmente
+-Adicionado novo monstro: Slime de Fogo
+-Adicionado sistema de efeitos com o primeiro efeito sendo "Queimado" podendo ser causado pelo Slime de Fogo
+-Poção de cura agora dropa menos
 -Sistema de stack de itens(Provavelmente vou fazer um sistema de mochilas, onde algumas mochilas permitem estacar itens)
+
+v0.0.4
+-Sistema de salvamentos
+-Sistema de nivel de monstro

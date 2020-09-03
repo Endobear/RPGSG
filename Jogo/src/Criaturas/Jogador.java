@@ -222,7 +222,7 @@ public class Jogador extends Criatura{
 	@Override
 	public void atacar(Criatura criatura) 
 	{
-		int dano = this.getAtaque()-criatura.getDefesa(); 
+		int dano = (this.getAtaque() + this.getForcaTemp())-criatura.getDefesa(); 
 		if(dano < 0) 
 		{
 			if(criatura.getDefesa() < this.getAtaque()*2) 
@@ -327,7 +327,7 @@ public class Jogador extends Criatura{
 		this.setMaxXp(this.getNivel()*5);//aumenta o necessário de xp para o próximo nível
 		JOptionPane.showMessageDialog(null, "Parabéns, você passou de nivel!\nAgora você é nivel " + this.getNivel());
 		
-		//TODO fazer um sistema melhor de aumento das habilidades, com numeros aeatórios
+		//TODO fazer um sistema melhor de aumento das habilidades, com numeros aleatórios
 		this.setForca(this.getForca()+2);
 		this.setResistencia(this.getDefesa()+1);
 		this.setVelocidade(this.getVelocidade()+5);
@@ -371,6 +371,17 @@ public class Jogador extends Criatura{
 	@Override
 	public String informacoes() 
 	{
+		String efeitosMon = "";
+		for (int i = 0; i < getEfeitos().length; i++) {
+			if(getEfeitos()[i].getId() != 0) 
+			{
+				if(efeitosMon.equals("")) 
+				{
+					efeitosMon = "Efeitos: " ;
+				}
+				efeitosMon += getEfeitos()[i].getNome() + " ";
+			}
+		}
 		return "Nome: " + this.getNome() 
 				+ "\nNivel: " + this.getNivel()
 				+ "\nExperiência: " + this.getXp() + "/" + this.getMaxXp()

@@ -13,7 +13,7 @@ public class Slime extends CriaturaHostil{
 		this.setId(2);
 		this.setVelocidade(1);
 		setXp((int) ((Math.random()*3) + 1) );
-		if((int) Math.random()*5 + 1 <= 4) 
+		if((int) Math.random()*5 + 1 <= 2) 
 		{
 			this.setDrop(new PocaoCura());
 		}

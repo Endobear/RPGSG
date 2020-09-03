@@ -52,27 +52,19 @@ public class TelaEscolhaInventario extends JDialog {
 		setModal(true);
 		
 		JButton[] btnItens = new JButton[jogador.inventario.length];
-		for (int i = 0; i < jogador.inventario.length; i++) {
+		for (int i = 0,contBlocHor = 0, contBlocVert = 0; i < jogador.inventario.length; i++,contBlocHor++) {
 			setNumero(i);
 			final int j;
 			j = i;
 			btnItens[i] = new JButton(jogador.inventario[i].getNome());
-			if(i+1 > 4 && i < 8)
+			if(contBlocHor+1 > 4)
 			{
-				btnItens[i].setBounds(10+(125*(i-4)), 75, 120, 33);
+				contBlocHor = 0;
+				contBlocVert++;
 			}
-			else if(i+1 > 8 && i < 12)
-			{
-				btnItens[i].setBounds(10+(125*(i-8)), 115, 120, 33);
-			} 
-			else if(i+1 > 12)
-			{
-				btnItens[i].setBounds(10+(125*(i-12)), 155, 120, 33);
-			} 
-			else
-			{
-				btnItens[i].setBounds(10+(125*i), 35, 120, 33);
-			}
+			
+			btnItens[i].setBounds(10 +(125*(contBlocHor)), 75 +(40*contBlocVert), 120, 33);
+		
 			btnItens[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					setNumero(j);
