@@ -1,10 +1,10 @@
 package Criaturas;
-import Genericos.CriaturaHostil;
+import Genericos.Criatura;
 import Genericos.Item;
 import Itens.EspadaMadeira;
 import Itens.Pedra;
 
-public class Esqueleto extends CriaturaHostil{
+public class Esqueleto extends Criatura{
 	
 	
 	/**
@@ -17,7 +17,8 @@ public class Esqueleto extends CriaturaHostil{
 		this.setNome("Esqueleto");
 		this.setAtaque((int) ((Math.random()*3) + 1) );
 		this.setDefesa(1);
-		this.setVida(3);
+		this.setMaxVida(3);
+		this.setVida(getMaxVida());
 		this.setVelocidade((int) ((Math.random()*10) + 1) );
 		setXp((int) ((Math.random()*5) + 1) );
 		if(numero <= 4) 
@@ -46,7 +47,8 @@ public class Esqueleto extends CriaturaHostil{
 		this.setNome("Esqueleto");
 		this.setAtaque((int) ((Math.random()*3) + 1) );
 		this.setDefesa(1);
-		this.setVida(3);
+		this.setMaxVida(3);
+		this.setVida(getMaxVida());
 		this.setItemEquipado(item);
 		this.setVelocidade(10);
 		setXp((int) ((Math.random()*5) + 1) );
@@ -67,7 +69,8 @@ public class Esqueleto extends CriaturaHostil{
 		this.setNome("Esqueleto");
 		this.setAtaque(ataque);
 		this.setDefesa(defesa);
-		this.setVida(vida);
+		this.setMaxVida(vida);
+		this.setVida(getMaxVida());
 		setXp((int) ((Math.random()*5) + 1) );
 	}
 	

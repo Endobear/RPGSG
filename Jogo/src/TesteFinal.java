@@ -14,7 +14,8 @@ import javax.swing.SwingConstants;
 import Criaturas.Esqueleto;
 import Criaturas.Jogador;
 import Criaturas.Slime;
-import Genericos.CriaturaHostil;
+import Criaturas.SlimeFogo;
+import Genericos.Criatura;
 import Genericos.Item;
 import Itens.EspadaMadeira;
 import Itens.Pedra;
@@ -27,7 +28,7 @@ public class TesteFinal {
 	/**
 	 * Launch the application.
 	 */
-	Map<Integer,Item> itens = new HashMap<Integer, Item>();
+	public Map<Integer,Item> itens = new HashMap<Integer, Item>();
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -77,7 +78,7 @@ public class TesteFinal {
 	 */
 	private void initialize(Jogador jogador) {
 		frmRpgsg = new JFrame();
-		frmRpgsg.setTitle("RPGSG v0.0.2");
+		frmRpgsg.setTitle("RPGSG v0.0.3");
 		frmRpgsg.setBounds(100, 100, 617, 267);
 		frmRpgsg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmRpgsg.getContentPane().setLayout(null);
@@ -109,25 +110,29 @@ public class TesteFinal {
 		btnInventario.setBounds(206, 132, 186, 68);
 		frmRpgsg.getContentPane().add(btnInventario);
 		
-		JButton btnGerarEsqueleto = new JButton("Lutar");
-		btnGerarEsqueleto.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnGerarEsqueleto.addActionListener(new ActionListener() {
+		JButton btnGerarMonstros = new JButton("Lutar");
+		btnGerarMonstros.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnGerarMonstros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Batalha b = new Batalha();
 				try {
-					String numero = JOptionPane.showInputDialog(null,"Com quantos montros deseja lutar?");
+					String numero = JOptionPane.showInputDialog(null,"Com quantos monstros deseja lutar?");
 					if(numero != null) 
 					{
 						
 					
-					CriaturaHostil[] c = new CriaturaHostil[Integer.parseInt(numero)];
+					Criatura[] c = new Criatura[Integer.parseInt(numero)];
 				
 				
 				for (int i = 0; i < c.length; i++) {
-					
-						if((int) ((Math.random()*2 +1)) == 1) 
+						int monstro = (int) ((Math.random()*4 +1));
+						if(monstro > 1 && monstro < 4) 
 						{
 							c[i] = new Slime();
+						}
+						else if(monstro == 1)
+						{
+							c[i] = new SlimeFogo();
 						}
 						else {c[i] = new Esqueleto();}
 					
@@ -140,7 +145,7 @@ public class TesteFinal {
 				}
 			}
 		});
-		btnGerarEsqueleto.setBounds(402, 132, 186, 68);
-		frmRpgsg.getContentPane().add(btnGerarEsqueleto);
+		btnGerarMonstros.setBounds(402, 132, 186, 68);
+		frmRpgsg.getContentPane().add(btnGerarMonstros);
 	}
 }

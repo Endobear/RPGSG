@@ -41,8 +41,11 @@ public class TelaEscolhaInventario extends JDialog {
 	JLabel lblItem = new JLabel("Tempate");
 	int numero = -1;
 	/**
-	 * Create the dialog.
+	 * Essa classe permite ao jogador escloher algo de seu inventário
+	 * @param jogador
+	 * @param emBatalha
 	 */
+	 
 	public TelaEscolhaInventario(Jogador jogador, boolean emBatalha) {
 		setBounds(100, 100, 530, 390);
 		getContentPane().setLayout(new BorderLayout());
@@ -56,7 +59,17 @@ public class TelaEscolhaInventario extends JDialog {
 			setNumero(i);
 			final int j;
 			j = i;
-			btnItens[i] = new JButton(jogador.inventario[i].getNome());
+			String itemNome = "";
+			if(jogador.inventario[i].isEstacavel()) 
+			{
+				if(jogador.inventario[i].getQuantidade() > 1) 
+				{
+					itemNome += "(" + jogador.inventario[i].getQuantidade() +")";
+				}
+			}
+			itemNome = jogador.inventario[i].getNome();
+			
+			btnItens[i] = new JButton(itemNome);
 			if(contBlocHor+1 > 4)
 			{
 				contBlocHor = 0;
@@ -161,6 +174,10 @@ public class TelaEscolhaInventario extends JDialog {
 		}
 				
 	}
+	/**
+	 * pega numero do espaço que um item está no inventário do jogador
+	 * @return
+	 */
 	public int getNumero() {
 		return numero;
 	}

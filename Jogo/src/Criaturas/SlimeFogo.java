@@ -2,11 +2,9 @@ package Criaturas;
 
 import Efeitos.Queimando;
 import Genericos.Criatura;
-import Genericos.CriaturaHostil;
-import Genericos.Item;
-import Itens.PocaoCura;
+import Itens.CuraQueimando;
 
-public class SlimeFogo extends CriaturaHostil {
+public class SlimeFogo extends Criatura {
 
 	public SlimeFogo() {
 		this.setAtaque(4);
@@ -15,21 +13,20 @@ public class SlimeFogo extends CriaturaHostil {
 		this.setDefesa(2);
 		this.setId(3);
 		this.setVelocidade(1);
-		setXp((int) ((Math.random()*6) + 1) );
-		if((int) (Math.random()*5) + 1 <= 4) 
-		{
-			this.setDrop(new PocaoCura());
+		setXp((int) ((Math.random() * 6) + 1));
+		if ((int) ((Math.random() * 5 + 1)) <= 2) {
+			this.setDrop(new CuraQueimando());
 		}
-	}
-	
-	@Override
-	public void atacar(Criatura criatura) {
-		if((int) (Math.random()*5) + 1 <= 1) 
-		{
-			aplicarEfeito(new Queimando(3,criatura), criatura);
-		}
-		super.atacar(criatura);
 	}
 
+	@Override
+	public void atacar(Criatura criatura) {
+		super.atacar(criatura);
+		if (criatura.getVida() >= 0) {
+			if ((int) ((Math.random() * 5 + 1)) <= 2) {
+				aplicarEfeito(new Queimando(3, criatura), criatura);
+			}
+		}
+	}
 
 }

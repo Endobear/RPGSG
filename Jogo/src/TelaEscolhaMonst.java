@@ -5,14 +5,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Criaturas.Esqueleto;
-import Genericos.CriaturaHostil;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
+import Genericos.Criatura;
 
 public class TelaEscolhaMonst extends JDialog {
 
@@ -27,7 +26,8 @@ public class TelaEscolhaMonst extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			CriaturaHostil[] monst = new CriaturaHostil[] {new Esqueleto(), new Esqueleto(),new Esqueleto(),new Esqueleto(),new Esqueleto(), new Esqueleto(),new Esqueleto(),new Esqueleto(),new Esqueleto()};
+			Criatura[] monst = new Criatura[] { new Esqueleto(), new Esqueleto(), new Esqueleto(), new Esqueleto(),
+					new Esqueleto(), new Esqueleto(), new Esqueleto(), new Esqueleto(), new Esqueleto() };
 			TelaEscolhaMonst dialog = new TelaEscolhaMonst(monst);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
@@ -35,23 +35,24 @@ public class TelaEscolhaMonst extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	CriaturaHostil criaturaEscohida = new CriaturaHostil();
+
+	Criatura criaturaEscohida = new Criatura();
 	JLabel lblMonstro = new JLabel("Tempate");
 	int numero;
+
 	/**
 	 * Create the dialog.
 	 */
-	public TelaEscolhaMonst(CriaturaHostil[] criaturas) {
+	public TelaEscolhaMonst(Criatura[] criaturas) {
 		setBounds(100, 100, 530, 390);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		atualizarLayout(criaturas);
 		setModal(true);
-		
-		
+
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -73,7 +74,7 @@ public class TelaEscolhaMonst extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
+
 						setVisible(false);
 					}
 				});
@@ -85,8 +86,8 @@ public class TelaEscolhaMonst extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
-						setCriaturaEscohida(new CriaturaHostil());
+
+						setCriaturaEscohida(new Criatura());
 						setVisible(false);
 					}
 				});
@@ -95,42 +96,43 @@ public class TelaEscolhaMonst extends JDialog {
 			}
 		}
 	}
+
 	public int getNumero() {
 		return numero;
 	}
+
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public CriaturaHostil getCriaturaEscohida() {
+
+	public Criatura getCriaturaEscohida() {
 		return criaturaEscohida;
 	}
-	public void setCriaturaEscohida(CriaturaHostil criaturaEscohida) {
+
+	public void setCriaturaEscohida(Criatura criaturaEscohida) {
 		this.criaturaEscohida = criaturaEscohida;
 	}
+
 	/**
 	 * Faz e posiciona os botões de monstros
 	 */
-	public void atualizarLayout(CriaturaHostil[] criaturas) 
-	{
-		
+	public void atualizarLayout(Criatura[] criaturas) {
+
 		JButton[] btnMonstros = new JButton[criaturas.length];
-		for (int i = 0,contBlocHor = 0, contBlocVert = 0; i < btnMonstros.length; i++,contBlocHor++) {
+		for (int i = 0, contBlocHor = 0, contBlocVert = 0; i < btnMonstros.length; i++, contBlocHor++) {
 			setNumero(i);
 			final int j;
 			j = i;
-			
-			
-			if(contBlocHor+1 > 4)
-			{
+
+			if (contBlocHor + 1 > 4) {
 				contBlocHor = 0;
 				contBlocVert++;
 			}
-			
-			
+
 			btnMonstros[i] = new JButton(criaturas[i].getNome());
-			
-			btnMonstros[i].setBounds(10 +(125*(contBlocHor)), 75 +(40*contBlocVert), 120, 33);
-			
+
+			btnMonstros[i].setBounds(10 + (125 * (contBlocHor)), 75 + (40 * contBlocVert), 120, 33);
+
 			btnMonstros[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					setNumero(j);
@@ -140,8 +142,7 @@ public class TelaEscolhaMonst extends JDialog {
 				}
 			});
 			contentPanel.add(btnMonstros[i]);
-			if(criaturas[i].isVivo() == false) 
-			{
+			if (criaturas[i].isVivo() == false) {
 				btnMonstros[i].setVisible(false);
 			}
 		}

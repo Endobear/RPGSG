@@ -4,15 +4,15 @@ import Criaturas.Esqueleto;
 import Criaturas.Jogador;
 import Criaturas.Slime;
 import Criaturas.SlimeFogo;
-import Genericos.CriaturaHostil;
-import Genericos.Item;
+import Genericos.Criatura;
+import Itens.CuraQueimando;
 import Itens.Pedra;
 
 public class Batalha {
 
 	
 	Jogador jooj;
-	CriaturaHostil[] adversarios;
+	Criatura[] adversarios;
 	boolean fugiu = false;
 	
 	public static void main(String[] args) {
@@ -20,8 +20,10 @@ public class Batalha {
 		Batalha batalha = new Batalha();
 		Jogador j = new Jogador();
 		j.inventario[1] = new Pedra();
-		CriaturaHostil[] adv = new CriaturaHostil[]{new Esqueleto(), new Slime(), new SlimeFogo()};
-		
+		j.inventario[0] = new CuraQueimando();
+		Criatura[] adv = new Criatura[]{new Esqueleto(), new Slime(), new SlimeFogo(), new SlimeFogo()};
+		j.darXP(5);
+		System.out.println((int)(Math.random()*5) + 1);
 		batalha.iniciarBatalha(j,adv);
 	}
 
@@ -30,10 +32,10 @@ public class Batalha {
 	 * @param jogador
 	 * @param criatura
 	 */
-	public  void iniciarBatalha(Jogador jogador, CriaturaHostil criatura) 
+	public  void iniciarBatalha(Jogador jogador, Criatura criatura) 
 	{
 		
-		adversarios = new CriaturaHostil[1]; //inicia adiversarios com 1 espaço
+		adversarios = new Criatura[1]; //inicia adiversarios com 1 espaço
 		adversarios[0] = criatura; //coloca a criaturo nos adversários
 		passaTurno(jogador, adversarios); //começa o 1° turno
 	}
@@ -42,9 +44,9 @@ public class Batalha {
 	 * @param jogador
 	 * @param criatura
 	 */
-	public void iniciarBatalha(Jogador jogador, CriaturaHostil[] criatura) 
+	public void iniciarBatalha(Jogador jogador, Criatura[] criatura) 
 	{
-		adversarios = new CriaturaHostil[criatura.length]; //inicia adversários com espaços para cada criatura que vai lutar
+		adversarios = new Criatura[criatura.length]; //inicia adversários com espaços para cada criatura que vai lutar
 		adversarios = criatura; //transfere todas as criaturas para a variave adversários
 		passaTurno(jogador, adversarios);//começa o 1° turno
 	}
@@ -54,7 +56,7 @@ public class Batalha {
 	 * @param jogador
 	 * @param criatura
 	 */
-	public void passaTurno(Jogador jogador, CriaturaHostil[] criatura) 
+	public void passaTurno(Jogador jogador, Criatura[] criatura) 
 	{
 		
 		int acoes = (jogador.getVelocidade()/2);//simples sistemas de ações que vai ser mudado depois
@@ -185,7 +187,7 @@ public class Batalha {
 			nomeAdv[i] = adversarios[i].getNome();
 		}
 		int escolha;
-		escolha = JOptionPane.showOptionDialog(null, jogador.getNome()+"\nVida: " + jogador.getVida(), "Batalha", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, "Atacar");
+		escolha = JOptionPane.showOptionDialog(null, jogador.informacoes(), "Batalha", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, "Atacar");
 		switch (escolha) {
 		/**
 		 * Se o jogador escolher atacar
@@ -225,11 +227,7 @@ public class Batalha {
 							/**
 							 * Atira o item em alguma criatura
 							 */
-							jogador.inventario[telaInv.getNumero()].Usar(telaMonst.getCriaturaEscohida());
-							if(jogador.inventario[telaInv.getNumero()].getUsos() <= 0) 
-							{
-								jogador.inventario[telaInv.getNumero()] = new Item();
-							}
+							jogador.inventario[telaInv.getNumero()].usar(telaMonst.getCriaturaEscohida());
 						}
 						
 					}
@@ -239,11 +237,8 @@ public class Batalha {
 					 */
 					else
 					{
-						jogador.inventario[telaInv.getNumero()].Usar(jogador);
-						if(jogador.inventario[telaInv.getNumero()].getUsos() <= 0) 
-						{
-							jogador.inventario[telaInv.getNumero()] = new Item();
-						}
+						jogador.inventario[telaInv.getNumero()].usar(jogador);
+						
 					}
 				}
 				
@@ -288,13 +283,13 @@ public class Batalha {
 	 * @param jogador
 	 */
 	// TODO fazer com que cada inimigo, na classe dele, tenha programado o que ele irá fazer em seu turno, por exemplo: atacar, se curar, curar um aliado, dar efeito
-	private void turnoInimigo(CriaturaHostil criatura, Jogador jogador) {
+	private void turnoInimigo(Criatura criatura, Jogador jogador) {
 		criatura.atacar(jogador);
 	}
 	
 	
 	
-	public boolean temAdversariosVivos(CriaturaHostil[] criaturas,Jogador jogador) 
+	public boolean temAdversariosVivos(Criatura[] criaturas,Jogador jogador) 
 	{
 		boolean n = false;
 		for (int i = 0; i < criaturas.length; i++) {

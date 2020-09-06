@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import Criaturas.Esqueleto;
 import Criaturas.Jogador;
 import Criaturas.Slime;
-import Genericos.CriaturaHostil;
+import Genericos.Criatura;
 import Itens.EspadaMadeira;
 
 public class Teste {
@@ -158,7 +158,7 @@ public class Teste {
 		case 0:
 			Batalha u = new Batalha();
 			try {
-				CriaturaHostil[] c = new CriaturaHostil[Integer.parseInt(JOptionPane.showInputDialog(null,"Quantos?"))];
+				Criatura[] c = new Criatura[Integer.parseInt(JOptionPane.showInputDialog(null,"Quantos?"))];
 			
 			
 			for (int i = 0; i < c.length; i++) {

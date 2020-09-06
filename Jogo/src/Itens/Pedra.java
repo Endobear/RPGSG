@@ -20,13 +20,12 @@ public class Pedra extends Item{
 	}
 
 	@Override
-	public void Usar(Criatura criatura) 
+	public void usar(Criatura criatura) 
 	{
 		int dano = this.getDano() - criatura.getDefesa();
 		if (dano <= 0) 
 		{
 			JOptionPane.showMessageDialog(null, "Você taca uma pedra em " + criatura.getNome() + " mas não causa dano");
-			this.setUsos(this.getUsos()-1);
 		}
 		else 
 		{
@@ -34,6 +33,6 @@ public class Pedra extends Item{
 			JOptionPane.showMessageDialog(null, "Você taca uma pedra em " +criatura.getNome() + " causando " + dano + " de dano");
 			
 		}
-		this.setUsos(this.getUsos()-1);
+		this.gastar();
 	}
 }

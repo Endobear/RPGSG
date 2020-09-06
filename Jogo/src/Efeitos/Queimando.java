@@ -5,13 +5,17 @@ import Genericos.Efeito;
 
 public class Queimando extends Efeito{
 
+	public Queimando() 
+	{
+		this.setId(1);
+	}
 	public Queimando(int turnos, Criatura criatura) {
 		this.setCriaturaPossuida(criatura);
 		this.setNome("Queimando!");
 		this.setModificador(2);
 		this.setDescricao("A criatura com esse efeito levará " + this.getModificador() + " de dano em cada turno");
-		this.setTipo(1);
-		this.setLocal(0);
+		this.setTipo(SUBTRAIR);
+		this.setLocal(VIDA);
 		this.setTurnosMax(turnos);
 		this.setId(1);
 		this.setMensagem(getCriaturaPossuida().getNome() + " levou " + this.getModificador() + " de dano por Queimadura!");
@@ -21,8 +25,8 @@ public class Queimando extends Efeito{
 		this.setNome("Queimando!");
 		this.setModificador(2);
 		this.setDescricao("A criatura com esse efeito levará " + this.getModificador() + " de dano em cada turno");
-		this.setTipo(1);
-		this.setLocal(0);
+		this.setTipo(SUBTRAIR);
+		this.setLocal(VIDA);
 		this.setTurnosMax(1);
 		this.setId(1);
 		this.setMensagem(getCriaturaPossuida().getNome() + " levou " + this.getModificador() + " de dano por Queimadura!");

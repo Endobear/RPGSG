@@ -2,35 +2,42 @@ package Itens;
 
 import javax.swing.JOptionPane;
 
-import Criaturas.Jogador;
+import Genericos.Criatura;
 import Genericos.Item;
 
 public class PocaoCura extends Item{
 
 	public PocaoCura() {
-		this.setDescricao("Poção de cura. cura 10 de vida");
+		this.setDescricao("Poção de Cura, cura 10 de vida");
 		this.setEquipavel(false);
 		this.setId(3);
-		this.setNome("Poção de cura");
+		this.setNome("Poção de Cura");
+		this.setQuantidade(1);
+		this.setEstacavel(true);
 		this.setAtiravel(false);
 		this.setUsavel(true);
 		this.setUsos(1);
 	}
 
 	@Override
-	public void Usar(Jogador jogador) 
+	public void usar(Criatura criatura) 
 	{
-		if(jogador.getVida()+10 >= jogador.getMaxVida()) 
+		String criaturaNome = criatura.getNome();
+		if(criatura.getId() == -1) 
 		{
-			jogador.setVida(jogador.getMaxVida());
-			JOptionPane.showMessageDialog(null, "Você usa a poção e se cura totalmente");
+			criaturaNome = "Você";
+		}
+		if(criatura.getVida()+10 >= criatura.getMaxVida()) 
+		{
+			criatura.setVida(criatura.getMaxVida());
+			JOptionPane.showMessageDialog(null, criaturaNome + " usa a poção e se cura totalmente");
 		}
 		else 
 		{
-			jogador.setVida(jogador.getVida() + 10);
-			JOptionPane.showMessageDialog(null, "Você usa a poção e cura 10 de vida, te deixando com " + jogador.getVida() + "de vida");
+			criatura.setVida(criatura.getVida() + 10);
+			JOptionPane.showMessageDialog(null, criaturaNome + " usa a poção e cura 10 de vida, ficando com " + criatura.getVida() + "de vida");
 		}
-		this.setUsos(this.getUsos()-1);
+		this.gastar();
 		}
 
 }

@@ -4,12 +4,30 @@ v0.0.2
 -Dano da espada de madeira de 1 foi para 2
 
 v0.0.3
--Arrumado layout dos monstros passar da tela horizontalmente
+-Arrumado botões dos monstros passando da tela horizontalmente caso coloque muitos monstros(Você precisa redimensionar a tela ainda assim)
 -Adicionado novo monstro: Slime de Fogo
 -Adicionado sistema de efeitos com o primeiro efeito sendo "Queimado" podendo ser causado pelo Slime de Fogo
+-Novo item "Cura de Queimadura" que cura o efeito "Quemando"
 -Poção de cura agora dropa menos
--Sistema de stack de itens(Provavelmente vou fazer um sistema de mochilas, onde algumas mochilas permitem estacar itens)
+-Sistema de stack de itens
+-Na tela de informações do jogador, você poderá notar um botão "salvar" e outro "carregar", mas isso foi uma tentativa falha de fazer um botão de salvamento, não o use
 
 v0.0.4
+-Colocar um scroll na tela caso exista muitos monstros
+-Aumentar a tela e a letra do jogo em geral
+-Arrumar alguns itens ficarem com "..." se o nome é muito grande
+-Melhorar sistema de batalha
+-Adicionar um Efeito para aumentar ou diminuir a defesa/ataque de criaturas
+-Adicionar itens que podem ser jogados tanto no jogador quanto em criaturas
+-Adicionar item equipavel capaz de adicionar efeitos
+
+v0.0.5
 -Sistema de salvamentos
--Sistema de nivel de monstro
+-Adicionar sistema de nivel de monstros
+-Adicionar habilidades
+-Adicionar sistema de Strings para traduções
+
+v0.0.6
+-Adicionar um sistema de mapa simples
+-Adicionar gráficos
+-Adicionar descrição do ataque de monstros

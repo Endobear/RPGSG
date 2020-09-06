@@ -42,3 +42,10 @@ o jogo vai ter mapas gerados automaticamente, inclusive a história. algumas estr
 
 se livrar do CriaturaHostil para transformar só em criatura
 
+
+Talvez fazer com os itens a mesma coisa que fiz com "EFEITOS", ou seja, fazer os itens ter um modificador que vai afetar a vida, defesa etc. Mas, diferente dos efeitos, alguns itens podem ter uma função específica(isso pode se desenvolver nas habilidades tbm).
+
+fazer uma classe de utilitários como: Gerar números aleatórios automáticamente, ver se um numero vai passar de algum máximo e até carregar todos os ids dos itens.
+
+Fazer monstros também poderem usar itens, mas tomar cuidado com a variável "espaço no inventário" pq monstros não tem inventário... mas podem ter
+Talvez fazer um sistema de mochilas, onde algumas mochilas permitem estacar itens

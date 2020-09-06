@@ -14,6 +14,10 @@ import Genericos.Item;
 
 public class TelaInventario extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3874271458185359499L;
 	private JPanel contentPane;
 
 	/**

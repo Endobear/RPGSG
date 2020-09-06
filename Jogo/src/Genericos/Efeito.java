@@ -12,9 +12,10 @@ public class Efeito {
 	 * turnos: quantos turnos vai durar. 
 	 * Modificador: o quanto ele vai adicionar,tirar,dividir etc.
 	 * Tipo: o que ele vai fazer: 0 = somar, 1 = subtrair
-	 * local: onde o efeito vai ser aplicado: 1 = ataque, 2 = defesa, 3 = velocidade
+	 * local: onde o efeito vai ser aplicado: 0 = vida, 1 = ataque, 2 = defesa, 3 = velocidade
 	 */
-	int id,turnosAtuais,turnosMax, modificador, tipo, local;
+	public final int SOMAR = 0, SUBTRAIR = 1,VIDA = 0, ATAQUE = 1, DEFESA = 2, VELOCIDADE = 3;
+	int id,turnosAtuais,turnosMax, modificador, tipo, local,posicao;
 	Criatura criaturaPossuida;
 	
 	
@@ -47,25 +48,7 @@ public class Efeito {
 		this.setTipo(tipo);
 	}
 	
-	/**
-	 * Verifica se uma criatura tem um efeito específico
-	 * @param criatura a ser conferida
-	 * @param efeito a ser verificado
-	 * @return
-	 */
-	public boolean temEfeito(Criatura criatura, Efeito efeito) 
-	{
-		boolean n = false;
-		for (int i = 0; i < criatura.efeitos.length; i++) {
-			if(criatura.efeitos[i].getId() == efeito.getId()) 
-			{
-				n = true;
-				break;
-			}
-			
-		}
-		return n ;
-	}
+	
 	
 	/**
 	 * Checa se não há nenhum efeito com turnos menores que 0
@@ -73,9 +56,9 @@ public class Efeito {
 	public void checarEfeitos() 
 	{
 		for (int i = 0; i < getCriaturaPossuida().efeitos.length; i++) {
-			if(getCriaturaPossuida().efeitos[i].getId() != 0 && getCriaturaPossuida().efeitos[i].getTurnosAtuais() < 0) 
+			if(getCriaturaPossuida().getEfeitos()[i].getId() != 0 && getCriaturaPossuida().efeitos[i].getTurnosAtuais() < 0) 
 			{
-				getCriaturaPossuida().efeitos[i].dissiparEfeito();
+				getCriaturaPossuida().getEfeitos()[i].dissiparEfeito();
 			}
 				
 			}
@@ -84,7 +67,7 @@ public class Efeito {
 	 * Checa em qual posição o efeito está
 	 * @return
 	 */
-	public int posicaoEfeito() 
+	public int posicaoEfeitoo() 
 	{
 		int posicao = -1;
 		for (int i = 0; i < getCriaturaPossuida().efeitos.length; i++) {
@@ -107,7 +90,7 @@ public class Efeito {
 		
 		// o quanto vai ser retirado ou aplicado de uma certa característica
 		int aplicar = this.getModificador();
-		if(tipo == 1) 
+		if(tipo == SUBTRAIR) 
 		{
 			aplicar = -this.getModificador();
 		}
@@ -147,11 +130,11 @@ public class Efeito {
 		//mostra a mensagem do efeito
 		JOptionPane.showMessageDialog(null, getMensagem());
 		//checa se os turnos do efeito acabaram ou não para subtrair um turno do efeito
-		if(getCriaturaPossuida().efeitos[posicaoEfeito()].getTurnosAtuais() - 1 < 0) 
+		if(getCriaturaPossuida().getEfeitos()[getPosicao()].getTurnosAtuais() - 1 < 0) 
 		{
-			getCriaturaPossuida().efeitos[posicaoEfeito()].dissiparEfeito();
+			getCriaturaPossuida().getEfeitos()[getPosicao()].dissiparEfeito();
 		}
-		else {getCriaturaPossuida().efeitos[posicaoEfeito()].setTurnosAtuais(getCriaturaPossuida().efeitos[posicaoEfeito()].getTurnosAtuais()-1);}
+		else {getCriaturaPossuida().getEfeitos()[getPosicao()].setTurnosAtuais(getCriaturaPossuida().getEfeitos()[getPosicao()].getTurnosAtuais()-1);}
 	}
 	
 	public void dissiparEfeito() 
@@ -164,7 +147,7 @@ public class Efeito {
 		}
 		
 		//checa se o efeito existe na criatura
-		if(posicaoEfeito() == -1) 
+		if(getPosicao() == -1) 
 		{
 			JOptionPane.showMessageDialog(null, "Erro, " + getNome() + " não encontrado em " + getCriaturaPossuida().nome);
 		}
@@ -199,12 +182,25 @@ public class Efeito {
 	}
 		JOptionPane.showMessageDialog(null, getNome() + " foi retirado de " + getCriaturaPossuida());
 		//deixa o slot do efeito vazio, ou seja, retira o efeito
-		criaturaPossuida.efeitos[posicaoEfeito()] = new Efeito();
+		criaturaPossuida.getEfeitos()[getPosicao()].apagar();
 		checarEfeitos();
 	
 		}
 	}
-	
+	/**
+	 * tranforma um efeito em um "Vazio"
+	 */
+	public void apagar() 
+	{
+		this.setId(0);
+		this.setNome("Nulo");
+		this.setDescricao("Efeito genérico");
+		this.setModificador(0);
+		this.setTipo(0);
+		this.setTurnosMax(1);
+		this.setTurnosAtuais(getTurnosMax());
+		this.setMensagem("não causou nada");
+	}
 	public int getId() {
 		return id;
 	}
@@ -295,6 +291,16 @@ public class Efeito {
 
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
+	}
+
+
+	public int getPosicao() {
+		return posicao;
+	}
+
+
+	public void setPosicao(int posicao) {
+		this.posicao = posicao;
 	}
 	
 

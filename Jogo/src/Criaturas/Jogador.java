@@ -15,9 +15,9 @@ import Genericos.Criatura;
 import Genericos.Item;
 
 public class Jogador extends Criatura{
-	int maxVida, nivel,forca,resistencia,maxXp;
+	int maxXp;
 	
-	public Item[] inventario = new Item[10];
+	public Item[] inventario = new Item[] {new Item(),new Item(),new Item(),new Item(),new Item(),new Item(),new Item(),new Item(),new Item(),new Item()};
 	
 	/**
 	 * Cria um jogador nivel 1 com 10 de vida, ataque 2, defesa 1 e sem nome
@@ -26,7 +26,7 @@ public class Jogador extends Criatura{
 	{
 		this.setMaxVida(10);
 		this.setId(-1);
-		this.setVida(maxVida);
+		this.setVida(getMaxVida());
 		this.setForca(2);
 		this.setResistencia(1);
 		this.setDefesa(this.getResistencia());
@@ -35,7 +35,6 @@ public class Jogador extends Criatura{
 		this.setMaxXp(this.getNivel()*5);
 		this.setXp(0);
 		this.setNome("Nulo");
-		this.fillInv(this);
 		this.setVelocidade(5);
 	}
 	
@@ -59,7 +58,7 @@ public class Jogador extends Criatura{
 		this.setXp(0);
 		this.setNome("Nulo");
 		this.setVelocidade(5);
-		this.fillInv(this);
+		
 	}
 
 	/**
@@ -70,27 +69,40 @@ public class Jogador extends Criatura{
 	 */
 	public void darItem(Item item, Jogador jogador)
 	{
+		String mensg = "inventário cheio";
 		boolean n = false;
 		for (int i = 0; i < jogador.getIventario().length; i++) {
-			if(jogador.inventario[i].getId() == 0) //se o id do item for 0 (Vazio)
+			if(item.isEstacavel()) //verifica se vc pode estacar o item
 			{
-				jogador.inventario[i] = item; //o "vazio" é substituido pelo item
-				jogador.inventario[i].setEspacoNoInventario(i);
-				n = true;
-				break;
+				if(jogador.inventario[i].getId() == item.getId()) //adiciona um item ao que já está lá
+				{
+					jogador.inventario[i].setQuantidade(jogador.inventario[i].getQuantidade() + 1);
+					mensg = "Você adiciona mais " + item.getNome()+" ao seu inventário";
+					n = true;
+					break;
+				}
 				
+			}
+			if(n == false) {
+				if(jogador.inventario[i].getId() == 0) //se o id do item for 0 (Vazio)
+				{
+					
+					jogador.inventario[i] = item; //o "vazio" é substituido pelo item
+					jogador.inventario[i].setEspacoNoInventario(i);
+					mensg = item.getNome() + " foi colocado no inventário";
+					n = true;
+					break;
+					
+				}
 			}
 		}
 			
-			if(n) 
-			{
-				JOptionPane.showMessageDialog(null, item.getNome() + " foi colocado no inventário");
-			}
-			else 
-			{
-				JOptionPane.showMessageDialog(null,"inventário cheio");
+			
+			
+				JOptionPane.showMessageDialog(null, mensg);
+			
 				
-			}
+			
 			
 	}
 	
@@ -356,39 +368,33 @@ public class Jogador extends Criatura{
 	}
 	
 	
-	/**
-	 * Enche o iventário do jogador de objetos vazios
-	 * @param jogador Jogador
-	 */
-	public void fillInv(Jogador jogador) 
-	{
-		for (int i = 0; i < jogador.inventario.length; i++) {
-			jogador.inventario[i] = new Item();
-		}
-		
-	}
+	
 	
 	@Override
 	public String informacoes() 
 	{
-		String efeitosMon = "";
+		String efeitosMon = "", info = "Nome: " + this.getNome() 
+									+ "\nNivel: " + this.getNivel()
+									+ "\nExperiência: " + this.getXp() + "/" + this.getMaxXp()
+									+ "\nVida: " + this.getVida();
+		if(this.getItemEquipado().getId() != 0) {
+			info += "\nItem: " + this.getItemEquipado().getNome() +"(Dano: "+ this.getItemEquipado().getDano() +")";
+		}
+		info += "\nAtaque: " + this.getAtaque() + "\nDefesa: " + this.getDefesa();
+		
+		
 		for (int i = 0; i < getEfeitos().length; i++) {
 			if(getEfeitos()[i].getId() != 0) 
 			{
 				if(efeitosMon.equals("")) 
 				{
-					efeitosMon = "Efeitos: " ;
+					efeitosMon = "\nEfeitos: " ;
 				}
 				efeitosMon += getEfeitos()[i].getNome() + " ";
 			}
 		}
-		return "Nome: " + this.getNome() 
-				+ "\nNivel: " + this.getNivel()
-				+ "\nExperiência: " + this.getXp() + "/" + this.getMaxXp()
-				+ "\nvida: " + this.getVida() 
-				+ "\nItem: " + this.getItemEquipado().getNome() +"(Dano: "+ this.getItemEquipado().getDano() +")" 
-				+ "\nAtaque: " + this.getAtaque() 
-				+ "\nDefesa: " + this.getDefesa();
+		info += efeitosMon;
+		return info;
 	}
 	
 	public void informacoes(Map<Integer, Item> mapa) 
@@ -543,24 +549,7 @@ public class Jogador extends Criatura{
 	}
 	
 //getters and setters
-	public int getMaxVida() {
-		return maxVida;
-	}
-
-
-	public void setMaxVida(int maxVida) {
-		this.maxVida = maxVida;
-	}
-
-
-	public int getNivel() {
-		return nivel;
-	}
-
-
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
-	}
+	
 
 	public Item[] getIventario() {
 		return inventario;
@@ -571,21 +560,7 @@ public class Jogador extends Criatura{
 		this.inventario = iventario;
 	}
 
-	public int getForca() {
-		return forca;
-	}
-
-	public void setForca(int forca) {
-		this.forca = forca;
-	}
-
-	public int getResistencia() {
-		return resistencia;
-	}
-
-	public void setResistencia(int resistencia) {
-		this.resistencia = resistencia;
-	}
+	
 
 
 	public int getMaxXp() {
